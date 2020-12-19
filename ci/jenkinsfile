@@ -1,0 +1,22 @@
+pipeline {
+    agent any
+
+    // environment {
+    //     CREDENTIALS1 = credentials('GOOGLE_CRED')
+    //     CREDENTIALS2 = credentials('CRED2')
+    // }
+    stages {
+        stage('Hello') {
+            steps {
+                withCredentials([file(credentialsId: 'GOOGLE_KEY', variable: 'FILE')]) {
+                    sh """
+                        cp \$FILE C:/Users/go_ha/traning/repo/test_repo/key_cred.json
+                        cd C:/Users/go_ha/traning/repo/test_repo/
+                        C:/Users/go_ha/AppData/Local/Programs/Python/Python37/python ref_sheet.py
+                        rm key_cred.json
+                    """
+                }
+            }
+        }
+    }
+}
