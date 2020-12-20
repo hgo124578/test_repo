@@ -10,9 +10,9 @@ pipeline {
     stages {
         stage('Hello') {
             steps {
-                withCredentials([file(credentialsId: 'GOOGLE_KEY', variable: 'FILE')]) {
-                runScript()
-                }
+//                withCredentials([file(credentialsId: 'GOOGLE_KEY', variable: 'FILE')]) {
+//                runScript()
+//                }
             }
         }
     }
