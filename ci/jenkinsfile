@@ -1,3 +1,5 @@
+@Library('test_lib')
+
 pipeline {
     agent any
 
@@ -9,12 +11,7 @@ pipeline {
         stage('Hello') {
             steps {
                 withCredentials([file(credentialsId: 'GOOGLE_KEY', variable: 'FILE')]) {
-                    sh """
-                        cp \$FILE C:/Users/go_ha/traning/repo/test_repo/key_cred.json
-                        cd C:/Users/go_ha/traning/repo/test_repo/
-                        C:/Users/go_ha/AppData/Local/Programs/Python/Python37/python ref_sheet.py
-                        rm key_cred.json
-                    """
+                runScript()
                 }
             }
         }
