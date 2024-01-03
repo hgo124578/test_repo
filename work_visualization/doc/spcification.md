@@ -1,3 +1,5 @@
+# Sprint performance visualization
+
 ## Purpose
 When the sprint is completed, compare the sprint work results with the baseline (sprint plan) and measure the work performance.
 
