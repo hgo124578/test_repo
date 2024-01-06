@@ -8,9 +8,10 @@ For each sprint, we measure the following metrics for members and teams.
 
 | Data                   | Description                                                                                                                                    |
 |------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
-| Planned point          | Planned point value at the start of the sprint.                                                                                                |
-| Accepted point         | Point value accepted in ths Sprint. Measure the value for Planned points and the value for all points accepted in the Sprint.                  |
-| Accepted ratio         | Percentage of Accepted points in the sprint point value. Measure for planned points and for all points in the sprint.                          |
+| Planned Point          | Planned point value at the start of the sprint.                                                                                                |
+| Accepted Point         | Point value accepted in ths Sprint. Measure the value for Planned points and the value for all points accepted in the Sprint.                  |
+| Accepted Ratio         | Percentage of Accepted points in the sprint point value. Measure for planned points and for all points in the sprint.                          |
+| Accepted Spent         | Time spent on accepted in ths Sprint. Measure for planned points and for all points in the sprint.                                             |
 | Cost performance index | Cost performance value for accepted issues. Calculated by dividing point by spent.  Measure for planned points and for all points in a sprint. |
 
 
@@ -26,6 +27,7 @@ Data at the start(Plan) is collected based on the sprint value, and data at the 
 | status       | Original data on Jira.              |
 | summary      | Original data on Jira.              |
 | story point  | Original data on Jira.              |
+| epic         | Original data on Jira.              |
 | sp_h         | Story points converted to hours.    |
 | spent_sprint | Total work log in sprint for issue. |
 | spent_all    | Sum of all work logs for issue.     |

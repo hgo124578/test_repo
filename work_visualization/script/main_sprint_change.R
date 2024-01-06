@@ -13,8 +13,10 @@ sprint_result <- "test"
 sprint_plan <- "P74.2"
 
 # Input
-input_file1 <- "data/inport/jira.csv"
-input_file2 <- "data/inport/sheet.csv"
+input_result_file1 <- "data/inport/result_jira.csv"
+input_result_file2 <- "data/inport/result_sheet.csv"
+input_plan_file1 <- "data/inport/result_jira.csv"
+input_plan_file2 <- "data/inport/result_sheet.csv"
 
 # Output
 work_file_result <- 'data/work/report_result.csv'
@@ -26,9 +28,13 @@ master_result_file <- 'data/master/report_result_all.csv'
 master_plan_file <- 'data/master/report_plan_all.csv'
 
 # Result report
-report_result <-
-  Report$new(input_file1, type = "result", sprint = sprint_result)
-report_result$output_file(work_file_result)
+report_result1 <-
+  Report$new(input_result_file1, type = "result", sprint = sprint_result)
+report_result2 <-
+  Report$new(input_result_file2, type = "result", sprint = sprint_result)
+
+report_result1$output_file(work_file_result)
+report_result2$output_file(work_file_result, mode = "a")
 
 current_result_data <-
   read.csv(file(work_file_result, encoding = 'Shift_JIS'))
@@ -50,9 +56,13 @@ write.table(
 )
 
 # Plan report
-report_plan <-
-  Report$new(input_file1, type = "plan", sprint = sprint_plan)
-report_plan$output_file(work_file_plan)
+report_plan1 <-
+  Report$new(input_plan_file1, type = "plan", sprint = sprint_plan)
+report_plan2 <-
+  Report$new(input_plan_file2, type = "plan", sprint = sprint_plan)
+
+report_plan1$output_file(work_file_plan)
+report_plan2$output_file(work_file_plan, mode = "a")
 
 current_plan_data <-
   read.csv(file(work_file_plan, encoding = 'Shift_JIS'))
