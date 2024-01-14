@@ -5,7 +5,7 @@ Report <- R6Class(
   public = list(
     initialize = function(source_file,
                           output_columns,
-                          addtional_columns,
+                          additional_columns,
                           sprint,
                           type,
                           regex = '[0-9][0-9]-[0-9][0-9]',
@@ -23,42 +23,44 @@ Report <- R6Class(
             "summary",
             "sp_h",
             "spent_sprint",
-            "spent_date",
-            "spent_all"
+            "spent_date"
           )
-        private$.addtional_columns <-
-          c("sum_sprint", "sum_date", "sum_all")
+        private$.additional_columns <-
+          c("spent_sprint", "spent_date")
       } else if (type == "result") {
         private$.output_columns <-
           c(
             "proc_sprint",
-            "name",
             "team",
-            "sprint",
+            "assignee",
             "issue.key",
+            "issue.type",
             "status",
             "summary",
-            "sp_h",
+            "story_point",
+            "story_point_h",
+            "epic",
             "spent_sprint",
             "spent_all"
           )
-        private$.addtional_columns <-
-          c("sum_sprint", "sum_all")
+        private$.additional_columns <-
+          c("story_point", "story_point_h", "spent_sprint", "spent_all")
       } else if (type == "plan") {
         private$.output_columns <-
           c(
             "proc_sprint",
-            "name",
             "team",
-            "sprint",
+            "assignee",
             "issue.key",
+            "issue.type",
             "status",
             "summary",
-            "sp_h",
-            "spent_all"
+            "story_point",
+            "story_point_h",
+            "epic"
           )
-        private$.addtional_columns <-
-          c("sum_all")
+        private$.additional_columns <-
+          c("story_point", "story_point_h")
       }
       private$.sprint <- sprint
       private$.sprint_dates <- def_sprint_dates
@@ -103,7 +105,7 @@ Report <- R6Class(
   private = list(
     .data = NULL,
     .output_columns = list(),
-    .addtional_columns = list(),
+    .additional_columns = list(),
     .sprint = NULL,
     .sprint_dates = NULL,
     .target_dates = list(),
@@ -115,20 +117,19 @@ Report <- R6Class(
                                                     'Shift_JIS')), by = c("name" = "name"))
       private$.data <-
         private$.data %>% mutate(sp_h = sp * private$.sp_unit)
-      for (column in private$.addtional_columns) {
+      for (column in private$.additional_columns) {
         if (column == "spent_sprint") {
           private$.build_sum_dates(mode = "sprint")
         } else if (column == "spent_date") {
           private$.build_sum_dates(mode = "date")
         } else if (column == "spent_all") {
           private$.build_sum_date()
+        } else if (column == "story_point") {
+        } else if (column == "story_point_h") {
         }
       }
       if (type == "result") {
         private$.data <- private$.data %>% filter(sum_sprint > 0)
-      } else if (type == "plan") {
-        private$.data <-
-          private$.data %>% filter(sprint == !!private$.sprint)
       }
       private$.data <-
         private$.data %>% mutate(proc_sprint = private$.sprint)

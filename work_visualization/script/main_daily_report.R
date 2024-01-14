@@ -1,3 +1,4 @@
+setwd("C:/Users/go_ha/traning/R/work_visualization")
 #install.packages("tidyverse")
 #install.packages('openxlsx')
 library(dplyr)
@@ -5,29 +6,43 @@ library(stringr)
 library(R6)
 library(purrr)
 library(openxlsx)
-setwd("C:/Users/go_ha/traning/R/work_visualization")
-
 source("script/class_report.R")
 
+#### Definition ####
+# Proc target
+proc_sprint <- "test",
+proc_dates <- list('12-17')
+
 # Input
-input_file <- "data/inport/target2.csv"
+input_file1 <- "data/inport/target2.csv"
+#input_file2 <- ""
 
 # Output
-work_file <- 'data/work/report_daily.csv'
-export_file <- 'data/export/report_daily.xlsx'
+csv_file <- 'data/work/report_daily.csv'
+xlsm_file <- 'data/export/report_daily.xlsx'
 
-
-report_daily <-
+#### Output daily report with csv ####
+# Build daily report
+report_daily1 <-
   Report$new(
-    input_file,
+    input_file1,
     type = "daily",
-    sprint = "test",
-    target_dates = list('12-17')
+    sprint = proc_sprint,
+    target_dates = proc_dates
   )
-report_daily$output_file(work_file)
-report_daily$output_file(work_file, mode = "a")
+#report_daily2 <-
+#  Report$new(
+#    input_file2,
+#    type = "daily",
+#    sprint = proc_sprint,
+#    target_dates = proc_dates
+#  )
 
-daily_data <- read.csv(work_file %>% file(encoding = 'Shift_JIS'))
+# Output daily report with csv
+report_daily1$output_file(csv_file)
+#report_daily2$output_file(csv_file, mode = "a")
 
-export_data <- list("daily_update" = daily_data)
-write.xlsx(export_data, export_file)
+#### Convert daily report to xlsm ####
+csv_data <- read.csv(csv_file %>% file(encoding = 'Shift_JIS'))
+xlsm_data <- list("daily_update" = csv_data)
+write.xlsx(xlsm_data, xlsm_file)
